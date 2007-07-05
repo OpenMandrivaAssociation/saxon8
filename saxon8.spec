@@ -48,6 +48,7 @@ Source3:        %{name}.build.script
 Source4:        %{stdname}.1
 Source5:                %{stdname}q.1
 BuildRequires:  jpackage-utils >= 0:1.6
+BuildRequires:  ant
 BuildRequires:        bea-stax-api
 BuildRequires:  xml-commons-apis
 BuildRequires:  xom

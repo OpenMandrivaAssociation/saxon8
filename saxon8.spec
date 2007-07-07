@@ -32,10 +32,11 @@
 %define resolverdir %{_sysconfdir}/java/resolver
 %define stdname saxon8
 %define gcj_support 1
+%bcond_without xom
 
 Name:           saxon8
 Version:        B.8.7
-Release:        %mkrel 1.1.1
+Release:        %mkrel 1.1.2
 Epoch:          0
 Summary:        Java  Basic XPath 2.0, XSLT 2.0, and XQuery 1.0 implementation
 License:        MPL
@@ -43,20 +44,22 @@ Group:          Development/Java
 URL:            http://saxon.sourceforge.net/
 Source0:        http://download.sf.net/saxon/saxon-resources8-7.zip
 Source1:        %{name}.saxon.script
-Source2:                %{name}.saxonq.script
+Source2:        %{name}.saxonq.script
 Source3:        %{name}.build.script
 Source4:        %{stdname}.1
-Source5:                %{stdname}q.1
+Source5:        %{stdname}q.1
 BuildRequires:  jpackage-utils >= 0:1.6
 BuildRequires:  ant
-BuildRequires:        bea-stax-api
+BuildRequires:  bea-stax-api
 BuildRequires:  xml-commons-apis
+%if %with xom
 BuildRequires:  xom
+%endif
 BuildRequires:  jdom >= 0:1.0-0.b7
 BuildRequires:  java-javadoc
 BuildRequires:  jdom-javadoc >= 0:1.0-0.b9.3jpp
-Requires:                bea-stax-api
-Requires:                bea-stax
+Requires:       bea-stax-api
+Requires:       bea-stax
 Requires:       jaxp_parser_impl
 Requires:       /usr/sbin/update-alternatives
 Provides:       jaxp_transform_impl
@@ -89,7 +92,6 @@ product from Saxonica Limited.
 This package provides the Basic XSLT 2.0 and XQuery 1.0 processor.
 Includes the command line interfaces and the JAVA APIs; also
 includes a standalone XPath API that doesn't depend on JAXP 1.3. 
-
 
 %package        manual
 Summary:        Manual for %{name}
@@ -138,7 +140,7 @@ the classpath.
 Summary:        DOM support for %{name}
 Group:          Development/Java
 Requires:       %{name} = %{epoch}:%{version}-%{release}
-#Requires:       jdom >= 0:1.0-0.b7
+#Requires:      jdom >= 0:1.0-0.b7
 
 %description    dom
 Provides additional classes enabling Saxon to be used with 
@@ -149,6 +151,7 @@ Saxon tree structure. Requires DOM level 3 (dom.jar, part
 of JAXP 1.3) to be on the classpath, if not running under 
 JDK 1.5. 
 
+%if %with xom
 %package        xom
 Summary:        XOM support for %{name}
 Group:          Development/Java
@@ -160,6 +163,7 @@ Provides additional classes enabling Saxon to be used with
 XOM trees. Supports using a XOM document as the input or 
 output of transformations and queries. Requires xom.jar on 
 the classpath. 
+%endif
 
 %package        xpath
 Summary:        XPATH support for %{name}
@@ -180,7 +184,6 @@ Requires:       %{name} = %{epoch}:%{version}-%{release}
 %description    scripts
 Utility scripts for %{name}.
 
-
 %prep
 %setup -q -c
 mkdir src
@@ -200,7 +203,10 @@ find . -name "*.jar" -exec rm {} \;
 #done
 
 %build
-export CLASSPATH=$(build-classpath xml-commons-apis jdom xom bea-stax-api)
+export CLASSPATH=$(build-classpath xml-commons-apis jdombea-stax-api)
+%if %with xom
+export  CLASSPATH=$CLASSPATH:$(build-classpath xom)
+%endif
 %{ant} \
   -Dj2se.javadoc=%{_javadocdir}/java \
   -Djdom.javadoc=%{_javadocdir}/jdom
@@ -212,7 +218,9 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_javadir}
 cp -p build/lib/%{stdname}.jar $RPM_BUILD_ROOT%{_javadir}/%{stdname}-%{version}.jar
 cp -p build/lib/%{stdname}-xpath.jar $RPM_BUILD_ROOT%{_javadir}/%{stdname}-xpath-%{version}.jar
+%if %with xom
 cp -p build/lib/%{stdname}-xom.jar $RPM_BUILD_ROOT%{_javadir}/%{stdname}-xom-%{version}.jar
+%endif
 cp -p build/lib/%{stdname}-sql.jar $RPM_BUILD_ROOT%{_javadir}/%{stdname}-sql-%{version}.jar
 cp -p build/lib/%{stdname}-jdom.jar $RPM_BUILD_ROOT%{_javadir}/%{stdname}-jdom-%{version}.jar
 cp -p build/lib/%{stdname}-dom.jar $RPM_BUILD_ROOT%{_javadir}/%{stdname}-dom-%{version}.jar
@@ -289,11 +297,13 @@ update-alternatives --install %{_javadir}/jaxp_transform_impl.jar \
 %attr(-,root,root) %{_libdir}/gcj/%{name}/%{stdname}-xpath*
 %endif
 
+%if %with xom
 %files xom
 %defattr(0644,root,root,0755)
 %{_javadir}/%{stdname}-xom*
 %if %{gcj_support}
 %attr(-,root,root) %{_libdir}/gcj/%{name}/%{stdname}-xom*
+%endif
 %endif
 
 %files sql

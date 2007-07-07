@@ -203,7 +203,7 @@ find . -name "*.jar" -exec rm {} \;
 #done
 
 %build
-export CLASSPATH=$(build-classpath xml-commons-apis jdombea-stax-api)
+export CLASSPATH=$(build-classpath xml-commons-apis jdom bea-stax-api)
 %if %with xom
 export  CLASSPATH=$CLASSPATH:$(build-classpath xom)
 %endif

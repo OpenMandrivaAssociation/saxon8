@@ -36,7 +36,7 @@
 
 Name:           saxon8
 Version:        B.8.7
-Release:        %mkrel 1.1.2
+Release:        %mkrel 1.1.3
 Epoch:          0
 Summary:        Java  Basic XPath 2.0, XSLT 2.0, and XQuery 1.0 implementation
 License:        MPL
@@ -197,10 +197,7 @@ rm -rf net/sf/saxon/dotnet/)
 cp -p %{SOURCE3} ./build.xml
 # cleanup unnecessary stuff we'll build ourselves
 rm -rf docs/api
-find . -name "*.jar" -exec rm {} \;
-#for j in $(find . -name "*.jar"); do
-#        mv $j $j.no
-#done
+%{_bindir}/find . -name '*.exe' -o -name  '*.jar' | %{_bindir}/xargs -t %{__rm}
 
 %build
 export CLASSPATH=$(build-classpath xml-commons-apis jdom bea-stax-api)

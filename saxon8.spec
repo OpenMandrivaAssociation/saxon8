@@ -61,7 +61,7 @@ BuildRequires:  jdom-javadoc >= 0:1.0-0.b9.3jpp
 Requires:       bea-stax-api
 Requires:       bea-stax
 Requires:       jaxp_parser_impl
-Requires:       /usr/sbin/update-alternatives
+Requires:       update-alternatives
 Provides:       jaxp_transform_impl
 %if %{gcj_support}
 Requires(post): java-gcj-compat

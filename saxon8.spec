@@ -36,7 +36,7 @@
 
 Name:           saxon8
 Version:        B.8.7
-Release:        %mkrel 1.1.3
+Release:        %mkrel 1.1.4
 Epoch:          0
 Summary:        Java  Basic XPath 2.0, XSLT 2.0, and XQuery 1.0 implementation
 License:        MPL
@@ -64,8 +64,6 @@ Requires:       jaxp_parser_impl
 Requires:       update-alternatives
 Provides:       jaxp_transform_impl
 %if %{gcj_support}
-Requires(post): java-gcj-compat
-Requires(postun): java-gcj-compat
 BuildRequires:  java-gcj-compat-devel
 %else
 BuildArch:      noarch

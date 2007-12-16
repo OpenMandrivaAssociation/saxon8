@@ -36,7 +36,7 @@
 
 Name:           saxon8
 Version:        B.8.7
-Release:        %mkrel 1.1.4
+Release:        %mkrel 1.1.5
 Epoch:          0
 Summary:        Java  Basic XPath 2.0, XSLT 2.0, and XQuery 1.0 implementation
 License:        MPL
@@ -48,7 +48,7 @@ Source2:        %{name}.saxonq.script
 Source3:        %{name}.build.script
 Source4:        %{stdname}.1
 Source5:        %{stdname}q.1
-BuildRequires:  jpackage-utils >= 0:1.6
+BuildRequires:  java-rpmbuild >= 0:1.6
 BuildRequires:  ant
 BuildRequires:  bea-stax-api
 BuildRequires:  xml-commons-apis

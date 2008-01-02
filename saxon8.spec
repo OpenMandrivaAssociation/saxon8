@@ -69,6 +69,7 @@ BuildRequires:  java-gcj-compat-devel
 BuildArch:      noarch
 BuildRequires:  java-devel
 %endif
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 Release 8.6 represents an important milestone in Saxonica's 

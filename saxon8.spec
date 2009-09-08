@@ -36,7 +36,7 @@
 
 Name:           saxon8
 Version:        B.8.7
-Release:        %mkrel 1.1.5
+Release:        %mkrel 1.1.6
 Epoch:          0
 Summary:        Java  Basic XPath 2.0, XSLT 2.0, and XQuery 1.0 implementation
 License:        MPL

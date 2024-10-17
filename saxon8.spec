@@ -41,7 +41,7 @@ Epoch:          0
 Summary:        Java  Basic XPath 2.0, XSLT 2.0, and XQuery 1.0 implementation
 License:        MPL
 Group:          Development/Java
-URL:            http://saxon.sourceforge.net/
+URL:            https://saxon.sourceforge.net/
 Source0:        http://download.sf.net/saxon/saxon-resources8-7.zip
 Source1:        %{name}.saxon.script
 Source2:        %{name}.saxonq.script
